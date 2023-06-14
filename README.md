@@ -33,7 +33,7 @@ Low Trust:
 
 ![moving_low](https://github.com/saadejazz/mpc-trust-cbf/blob/main/media/moving_low_trust/final_vid.gif)
 
-The difference in path can be more easily noted in the comparison plots shown below:  
+The difference in path can be more easily noted in the comparison plots shown below, where the animated plot on the left is for the first case where the pedestrian has high trust, while the one on the right is for the second case where the pedestrian has low trust:  
 
 ![together](https://github.com/saadejazz/mpc-trust-cbf/blob/main/media/anims/together.gif)
 
