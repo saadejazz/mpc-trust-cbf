@@ -1,3 +1,10 @@
+# Project-specific ignores
+output/
+jons/
+rgb/
+loc_history.pkl
+examples/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
