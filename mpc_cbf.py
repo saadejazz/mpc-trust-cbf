@@ -20,7 +20,7 @@ import timeit
 
 init_state = np.array([0.0] * 6)
 class Controller(object):
-    def __init__(self, start_point, end_point, P = 7, R = 2.7):
+    def __init__(self, start_point, end_point, P = 7, R = 2.5):
         self.vars                = cutils.CUtils()
         self._current_x          = 0
         self._current_y          = 0
@@ -83,10 +83,10 @@ class Controller(object):
         self._waypoints = generate_ref(x_c, x_g, 20, current_speed)
 
     @staticmethod
-    def calculate_gamma(trust, gamma_lim = 0.5, delta = 2.7):
+    def calculate_gamma(trust, gamma_init = 0.08, delta = 0.55, lambdaa = 2):
         '''Converts trust values to gamma for cbf constraints
         '''
-        return 1/((1/gamma_lim) + delta * (np.exp((-1 * trust)) - 1))
+        return gamma_init + delta*(trust**lambdaa)
 
     def perceive(self, obs_pos, obs_vel):
         self.obs_pos = np.array(sorted(obs_pos, key = lambda x: x[0]))
@@ -166,16 +166,16 @@ class Controller(object):
         x0 = self.vars.prev_input
 
         ## cost function weights ##
-        cte_W = 25
-        eth_W = 50
-        v_W = 60
-        st_rate_W = 200
+        cte_W = 35
+        eth_W = 65
+        v_W = 50
+        st_rate_W = 230
         acc_rate_W = 10
-        st_W = 100
+        st_W = 110
         acc_W = 1
 
         ## input bounds ##
-        b1 = (-1.22, 1.22)
+        b1 = (-1, 1)
         b2 = (0.0, 1.0)
         bnds = [b1] * self.P + [b2] * self.P
         assert(len(bnds) == 2 * self.P)
@@ -234,7 +234,7 @@ class Controller(object):
                 if len(self.trusts) <= obs_idx: gamma = self.calculate_gamma(0.5)
                 else: gamma = self.calculate_gamma(self.trusts[obs_idx]) 
 
-                return np.sum((X_1 - X_obs) ** 2) - self.R*self.R + (gamma * self.STEP_TIME - 1)\
+                return np.sum((X_1 - X_obs) ** 2) - self.R*self.R + (gamma - 1)\
                        * (np.sum((X - X_obs) ** 2) - self.R*self.R)
 
             CarRef_x = CarRef_y = CarRef_yaw = 0.0
@@ -254,6 +254,7 @@ class Controller(object):
             init_state[3] = v + (v - self.vars.v_previous)/self.STEP_TIME * latency
             init_state[4] = cte + v * np.sin(yaw_err) * latency
             init_state[5] = yaw_err + init_state[2]
+            # self.obs_pos += latency * self.obs_vel
 
             cstr = []
             for i in range(self.obs_pos.shape[0]):
