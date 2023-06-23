@@ -43,5 +43,8 @@ While the simplified system detailed in ```mpc-trust-cbf.ipynb``` can be easily 
 ## Problems/Future Work
 Pedestrians arriving unexpectedly or suddenly in the environment can cause the control problem to be infeasible. This is common when pedestrians are moving, even so if either the car or the pedestrian is moving at a high speed. A more robust approach needs to be worked on to deal with this. The momentum feature of the trust estimator introduces smooth transition of trust which introduces some robustness.
 
-
+## Attributions
+1. Discrete-time Model Predictive Control with Control Barrier Function Constraints - [GitHub](https://github.com/HybridRobotics/MPC-CBF)
+2. Model Predictive Control on the CARLA simulator - [GitHub](https://github.com/abwerby/Model-Predictive-Control-Carla)
+3. Autonomous Driving with Model Predictive Control - [GitHub](https://github.com/JunshengFu/Model-Predictive-Control)
 
