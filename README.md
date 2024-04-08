@@ -2,6 +2,8 @@
 
 This repository contains work built on the concept of _system-to-human_ trust that focuses on estimating huamn inattention from perceived images in an attempt to measure their reliability for actively maintaining safety. This trust estimation is detailed in the sister repository [trusty](https://github.com/saadejazz/trusty). This repository uses estimated trust as a control aggressiveness parameter for CBF constraints in an MPC framework for autonomous driving simulated in CARLA. This work is ongoing and will be updated if needed.  
 
+[![arXiv](https://img.shields.io/badge/arXiv-2307.12815-b31b1b.svg)](https://arxiv.org/abs/2307.12815)
+
 ## Simulation Environment Setting for CARLA
 An ego vehicle is simulated along with its interactions with the pedestrians in the surrounding. Two types of pedestrians are simulated. One type is posed so that the camera interprets smartphone usage and lack of eye contact. This pedestrian has low trust. The other pedestrian type simulated has a neutral pose with body facing the car, hence it is characterized as a high-trust pedestrian. The proposed algorithm navigates in such a fashion that it tries to be closer to trustworthy pedestrians and maintains more distance, relatively from untrustworthy ones.
 
